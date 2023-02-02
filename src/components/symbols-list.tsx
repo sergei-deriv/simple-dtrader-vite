@@ -73,18 +73,9 @@ const SymbolsList: React.FC = () => {
     const opt = active_symbols
       ? createOptions(active_symbols)
       : ({} as Option[]);
-    console.log(opt);
+    console.log('opt = ', opt);
     setOptions(opt);
     setLoading(false);
-
-    // const market = active_symbols.map((el) => el.market_display_name);
-    // setOptions(
-    //   [...new Set(market)].map((el) => ({
-    //     value: el,
-    //     label: el,
-    //   }))
-    // );
-    // setOptions([...new Set(market)]);
 
     console.log(res);
   };
@@ -92,6 +83,8 @@ const SymbolsList: React.FC = () => {
   React.useEffect(() => {
     getSymbols();
   }, []);
+
+  // console.log('!!! loading = ', loading);
 
   const cascader = (
     <Cascader
