@@ -1,7 +1,9 @@
+import { ActiveSymbolsRequest, ActiveSymbolsResponse } from '../types';
 import { api } from './api';
+
 export const active_symbols_request = {
-  active_symbols: 'brief',
-  product_type: 'basic',
+  active_symbols: 'brief' as ActiveSymbolsRequest['active_symbols'],
+  product_type: 'basic' as ActiveSymbolsRequest['product_type'],
 };
 
 export const ticks_history_request = {
@@ -20,7 +22,9 @@ export const contracts_for_request = {
   product_type: 'basic',
 };
 
-export const getActiveSymbols = (req: any = active_symbols_request) => {
-  return api.send(req);
-  //   const res = 'tral al ;';
+// get active_symbols
+export const getActiveSymbols = (
+  req: ActiveSymbolsRequest = active_symbols_request
+) => {
+  return api.activeSymbols(req);
 };
