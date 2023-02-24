@@ -15567,7 +15567,7 @@ export interface TicksHistoryRequest {
   /**
    * [Optional] An upper limit on ticks to receive.
    */
-  count?: number & string;
+  count?: number;
   /**
    * Epoch value representing the latest boundary of the returned ticks. If `latest` is specified, this will be the latest available timestamp.
    */

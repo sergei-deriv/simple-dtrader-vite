@@ -1,8 +1,14 @@
 import React from 'react';
 import { Cascader, Alert, Space, Spin } from 'antd';
-import { getActiveSymbols } from '../api/requests';
+import {
+  forgetAll,
+  getActiveSymbols,
+  getTicksHistory,
+  tickHistoryHandler,
+} from '../api';
 import { ActiveSymbolsResponse, Option } from '../types';
 import { createOptions } from '../utils/create-options';
+// import { connection, tickResponse } from '../api';
 
 const defOptions: Option[] = [
   {
@@ -54,16 +60,15 @@ const defOptions2: Option[] = [
   },
 ];
 
-// OnSingleChange<OptionType>
-
-const SymbolsList: React.FC = () => {
+const SymbolsList = () => {
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Option[]>(
     defOptions as Option[]
   );
 
-  const onChange = (value: any) => {
-    console.log(value);
+  // type OnSingleChange<OptionType> = (value: SingleValueType, selectOptions: OptionType[]) => void;
+  const onChange = (symbol: string) => {
+    tickHistoryHandler(symbol);
   };
 
   const getSymbols = async () => {
@@ -73,7 +78,6 @@ const SymbolsList: React.FC = () => {
     const opt = active_symbols
       ? createOptions(active_symbols)
       : ({} as Option[]);
-    console.log('opt = ', opt);
     setOptions(opt);
     setLoading(false);
 
@@ -83,8 +87,6 @@ const SymbolsList: React.FC = () => {
   React.useEffect(() => {
     getSymbols();
   }, []);
-
-  // console.log('!!! loading = ', loading);
 
   const cascader = (
     <Cascader
