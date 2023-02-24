@@ -48,6 +48,14 @@ const defOptions: Option[] = [
 ];
 
 export const createOptions = (active_symbols: ActiveSymbols): Option[] => {
+  return active_symbols.map((e) => {
+    return {
+      value: e.symbol,
+      label: e.display_name,
+    };
+  });
+
+  /*
   // const market = active_symbols.map((el) => el.market_display_name);
   // const market = [
   //   ...new Set(active_symbols.map((item) => item.market_display_name)),
@@ -76,7 +84,73 @@ export const createOptions = (active_symbols: ActiveSymbols): Option[] => {
   const market = [...market_set];
   const submarket = [...submarket_set];
 
+  console.log('active_symbols = ', active_symbols);
+  console.log('market_set = ', market_set);
   console.log('market_set2 = ', market_set2);
+
+  
+  // display_name
+  // market
+  // market_display_name
+  // submarket
+  // submarket_display_name
+  // symbol
+  
+
+  const result: Option[] = [...market_set].map((el) => ({
+    value: el,
+    label: el,
+    children: [],
+  }));
+
+  type TObjectOption = {
+    [k: string]: Option;
+  };
+  const resObj = {} as TObjectOption;
+
+  active_symbols.forEach((el) => {
+    // if (resObj)
+
+    // check obj and create property for 1st time
+    if (!resObj.hasOwnProperty(el.market)) {
+      // for market
+      resObj[el.market] = {
+        value: el.market,
+        label: el.market_display_name,
+        children: [],
+      };
+
+      // for submarket
+      resObj[el.market].children?.push({
+        value: el.submarket,
+        label: el.submarket_display_name,
+        children: [],
+      });
+
+      // for symbol
+      resObj[el.market].children?.forEach((s, index) => {
+        resObj[el.market].children[index]({
+          value: el.submarket,
+          label: el.submarket_display_name,
+          children: [],
+        });
+      });
+    }
+  });
+
+  // // create structure
+  // active_symbols.forEach((el) => {
+  //   if (
+  //     result.some((e) => {
+  //       e.value === el.market_display_name;
+  //     })
+  //   ) {
+  //   }
+  // });
+
+  return result;
+
+  /*
 
   const result: Option[] = [...market_set].map((el) => ({
     value: el,
@@ -92,16 +166,17 @@ export const createOptions = (active_symbols: ActiveSymbols): Option[] => {
     const market_exist = result.some(
       (res_el) => res_el.label === el.market_display_name
     );
-    if (market_exist) {
-      const market_idx = (result[market_idx].value = el.market);
-      result[market_idx].label = el.market_display_name;
-    } else {
-      result.push({
-        value: el.market,
-        label: el.market_display_name,
-        children: [],
-      });
-    }
+    // if (market_exist) {
+    //   const market_idx = result.indexOf(el.market_display_name);
+    //   result[market_idx].value = el.market;
+    //   result[market_idx].label = el.market_display_name;
+    // } else {
+    //   result.push({
+    //     value: el.market,
+    //     label: el.market_display_name,
+    //     children: [],
+    //   });
+    // }
 
     // result[market_idx].value = el.market;
     // result[market_idx].label = el.market_display_name;
@@ -135,4 +210,6 @@ export const createOptions = (active_symbols: ActiveSymbols): Option[] => {
   //   label: el,
   //   // market: 'asdf',
   // }));
+
+  */
 };
