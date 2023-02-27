@@ -12,7 +12,7 @@ export const tickResponse = async (res: MessageEvent) => {
     chartStore.addTick({ price: data.tick.bid, time: data.tick.epoch });
   }
   if (data.msg_type === 'history') {
-    // console.log('history = ', data.history);
+    console.log('history = ', data.history);
     const { prices, times } = data.history as Record<string, Array<number>>;
     const result = prices.map((el, index) => ({
       price: prices[index],
@@ -24,6 +24,6 @@ export const tickResponse = async (res: MessageEvent) => {
 
 export const tickHistoryHandler = async (symbol: string) => {
   await forgetAll();
-  if (symbol) await getTicksHistory(symbol, true);
   connection.addEventListener('message', tickResponse);
+  if (symbol) await getTicksHistory(symbol, true);
 };

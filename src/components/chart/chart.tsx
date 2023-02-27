@@ -17,36 +17,49 @@ type TChartProps = {
 };
 
 const Chart = observer(({ data = chartStore.data }: TChartProps) => {
-  // console.log('data = ', data);
+  let min = Infinity,
+    max = -Infinity;
+
+  data.forEach((e) => {
+    if (min > e.price) {
+      min = e.price;
+    }
+    if (max < e.price) {
+      max = e.price;
+    }
+  });
+
+  const gap = ((max - min) / 100) * 5; // 5% gap
 
   return (
-    <ResponsiveContainer width={'100%'} minHeight={500} maxHeight={500}>
-      <LineChart
-        width={500}
-        height={700}
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid />
-        {/* <CartesianGrid strokeDasharray='3 3' /> */}
-        <XAxis dataKey='time' />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          type='monotone'
-          dataKey='price'
-          stroke='#8884d8'
-          activeDot={{ r: 8 }}
-        />
-        {/* <Line type='monotone' dataKey='uv' stroke='#82ca9d' /> */}
-      </LineChart>
-    </ResponsiveContainer>
+    <>
+      <ResponsiveContainer width={'100%'} minHeight={500} maxHeight={800}>
+        <LineChart
+          width={500}
+          height={700}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          {/* <CartesianGrid strokeDasharray='3 3' /> */}
+          <XAxis dataKey='time' />
+          <YAxis domain={[min - gap, max + gap]} />
+          <Tooltip />
+          <Legend />
+          <Line
+            type='monotone'
+            dataKey='price'
+            stroke='#8884d8'
+            activeDot={{ r: 4 }}
+          />
+          {/* <Line type='monotone' dataKey='uv' stroke='#82ca9d' /> */}
+        </LineChart>
+      </ResponsiveContainer>
+    </>
   );
 });
 
