@@ -1,14 +1,8 @@
 import React from 'react';
-import { Cascader, Alert, Space, Spin } from 'antd';
-import {
-  forgetAll,
-  getActiveSymbols,
-  getTicksHistory,
-  tickHistoryHandler,
-} from '../api';
+import { Cascader, Spin } from 'antd';
+import { getActiveSymbols, tickHistoryHandler } from '../api';
 import { ActiveSymbolsResponse, Option } from '../types';
 import { createOptions } from '../utils/create-options';
-// import { connection, tickResponse } from '../api';
 
 const defOptions: Option[] = [
   {
@@ -45,21 +39,6 @@ const defOptions: Option[] = [
   },
 ];
 
-const defOptions2: Option[] = [
-  {
-    value: '1',
-    label: '1',
-  },
-  {
-    value: '2',
-    label: '2',
-  },
-  {
-    value: '3',
-    label: '3',
-  },
-];
-
 const SymbolsList = () => {
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Option[]>(
@@ -68,6 +47,7 @@ const SymbolsList = () => {
 
   // type OnSingleChange<OptionType> = (value: SingleValueType, selectOptions: OptionType[]) => void;
   const onChange = (symbol: string) => {
+    console.log('changed! symbol = ', symbol);
     tickHistoryHandler(symbol);
   };
 
@@ -91,6 +71,7 @@ const SymbolsList = () => {
   const cascader = (
     <Cascader
       options={options}
+      // @ts-ignore
       onChange={onChange}
       placeholder='Please select'
     />

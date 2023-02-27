@@ -3,3 +3,8 @@ export type Option = {
   label: string;
   children?: Option[];
 };
+
+export type TChartData = {
+  name: string;
+  [k: string]: number | string;
+};

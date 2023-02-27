@@ -9,12 +9,15 @@ export const tickResponse = async (res: any) => {
     // await api.disconnect();
   }
   if (data.msg_type === 'tick') {
-    console.log(data.tick);
+    // console.log('tick = ', data.tick);
+  }
+  if (data.msg_type === 'history') {
+    console.log('history = ', data.history);
   }
 };
 
 export const tickHistoryHandler = async (symbol: string) => {
   await forgetAll();
-  await getTicksHistory(symbol, true);
+  if (symbol) await getTicksHistory(symbol, true);
   connection.addEventListener('message', tickResponse);
 };

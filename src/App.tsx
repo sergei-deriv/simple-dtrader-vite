@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import './App.css';
+import * as React from 'react';
+// import './App.css';
+import Chart from './components/chart';
 import SymbolsList from './components/symbols-list';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className='App'>
+    // <div className='App'>
+    <div>
       <h1>Simple DTrader</h1>
       <SymbolsList />
+      <Chart />
     </div>
   );
 }

@@ -11,4 +11,4 @@ export const connection = new WebSocket(
 
 export const api = new DerivAPIBasic({ connection });
 
-export default DerivAPIBasic;
+// export default api;
