@@ -1,9 +1,7 @@
 import {
   ActiveSymbolsRequest,
   ForgetAllRequest,
-  // ActiveSymbolsResponse,
   TicksHistoryRequest,
-  // TicksHistoryResponse,
 } from '../types';
 import { api } from './api';
 

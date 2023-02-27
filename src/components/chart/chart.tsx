@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { TChartData } from '../types';
+import { TChartData } from '../../types';
 
 const dataDef = [
   {

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Cascader, Spin } from 'antd';
-import { getActiveSymbols, tickHistoryHandler } from '../api';
-import { ActiveSymbolsResponse, Option } from '../types';
-import { createOptions } from '../utils/create-options';
+import { getActiveSymbols } from '../../api';
+import { ActiveSymbolsResponse, Option } from '../../types';
+import { createOptions } from '../../utils/create-options';
+import { tickHistoryHandler } from '../../utils/handlers';
 
 const defOptions: Option[] = [
   {

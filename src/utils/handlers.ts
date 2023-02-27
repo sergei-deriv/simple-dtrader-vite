@@ -1,12 +1,10 @@
-import { forgetAll, getTicksHistory } from './requests';
-import { connection } from './api';
+import { connection, forgetAll, getTicksHistory } from '../api';
 
-export const tickResponse = async (res: any) => {
+export const tickResponse = async (res: MessageEvent) => {
   const data = JSON.parse(res.data);
   if (data.error !== undefined) {
     console.log('Error : ', data.error.message);
     connection.removeEventListener('message', tickResponse, false);
-    // await api.disconnect();
   }
   if (data.msg_type === 'tick') {
     // console.log('tick = ', data.tick);
