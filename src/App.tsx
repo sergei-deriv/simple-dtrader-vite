@@ -2,10 +2,14 @@ import * as React from 'react';
 import Chart from './components/chart/chart';
 import SymbolsList from './components/symbols-list/symbols-list';
 import { Card, Layout, Space } from 'antd';
+import counter from './store/counter';
+import { observer } from 'mobx-react-lite';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-function App() {
+const App = observer(() => {
+  // const [count, SetCount] = React.useState(0);
+
   return (
     <div>
       <Layout>
@@ -14,6 +18,14 @@ function App() {
           <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
             <Card title='Set symbol' size='small'>
               <SymbolsList />
+            </Card>
+            <Card title='Counter' size='small'>
+              <Space>
+                counter: {counter.count}
+                <button onClick={counter.increment}>+</button>
+                <button onClick={counter.decrement}>-</button>
+                <button onClick={counter.reset}>reset</button>
+              </Space>
             </Card>
             <Card title='Chart'>
               <Chart />
@@ -24,6 +36,6 @@ function App() {
       </Layout>
     </div>
   );
-}
+});
 
 export default App;

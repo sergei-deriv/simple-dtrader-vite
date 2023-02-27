@@ -1,4 +1,5 @@
 import { connection, forgetAll, getTicksHistory } from '../api';
+import chartStore from '../store/chart-store';
 
 export const tickResponse = async (res: MessageEvent) => {
   const data = JSON.parse(res.data);
@@ -8,9 +9,16 @@ export const tickResponse = async (res: MessageEvent) => {
   }
   if (data.msg_type === 'tick') {
     // console.log('tick = ', data.tick);
+    chartStore.addTick({ price: data.tick.bid, time: data.tick.epoch });
   }
   if (data.msg_type === 'history') {
-    console.log('history = ', data.history);
+    // console.log('history = ', data.history);
+    const { prices, times } = data.history as Record<string, Array<number>>;
+    const result = prices.map((el, index) => ({
+      price: prices[index],
+      time: times[index],
+    }));
+    chartStore.createHistory(result);
   }
 };
 

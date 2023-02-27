@@ -5,6 +5,6 @@ export type Option = {
 };
 
 export type TChartData = {
-  name: string;
-  [k: string]: number | string;
+  price: number;
+  time: number;
 };
