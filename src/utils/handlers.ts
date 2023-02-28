@@ -27,8 +27,13 @@ export const tickResponse = async (res: MessageEvent) => {
 export const tickHistoryHandler = async (symbol: string) => {
   await forgetAll();
   connection.addEventListener('message', tickResponse);
-  if (symbol) await getTicksHistory(symbol, true);
-  chartStore.symbol = symbol;
+  if (symbol) {
+    await getTicksHistory(symbol, true);
+    chartStore.symbol = symbol;
+  } else {
+    chartStore.symbol = '';
+    chartStore.createHistory([]);
+  }
 };
 
 const convertUnixToLocaleString = (time: number) =>
