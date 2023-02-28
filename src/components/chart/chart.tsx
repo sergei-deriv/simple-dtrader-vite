@@ -36,7 +36,7 @@ const Chart = observer(({ data = chartStore.data }: TChartProps) => {
       <ResponsiveContainer width={'100%'} minHeight={500} maxHeight={800}>
         <LineChart
           width={500}
-          height={700}
+          height={800}
           data={data}
           margin={{
             top: 5,
@@ -49,7 +49,6 @@ const Chart = observer(({ data = chartStore.data }: TChartProps) => {
           <XAxis dataKey='time' />
           <YAxis domain={[min - gap, max + gap]} />
           <Tooltip />
-          <Legend />
           <Line
             type='monotone'
             dataKey='price'

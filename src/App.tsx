@@ -7,8 +7,6 @@ import { observer } from 'mobx-react-lite';
 const { Header, Footer, Sider, Content } = Layout;
 
 const App = observer(() => {
-  // const [count, SetCount] = React.useState(0);
-
   return (
     <div>
       <Layout>
