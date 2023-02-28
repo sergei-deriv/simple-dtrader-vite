@@ -6,11 +6,10 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { chartStore } from '../../store';
 import { TChartData } from '../../types';
-import chartStore from '../../store/chart-store';
 
 type TChartProps = {
   data?: Array<TChartData>;

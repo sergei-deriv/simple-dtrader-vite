@@ -1,8 +1,7 @@
-import Chart from './components/chart/chart';
-import SymbolsList from './components/symbols-list/symbols-list';
 import { Card, Layout, Space } from 'antd';
-import counter from './store/counter';
+import { counter } from './store';
 import { observer } from 'mobx-react-lite';
+import { SymbolsList, Chart } from './components';
 
 const { Header, Footer, Sider, Content } = Layout;
 
