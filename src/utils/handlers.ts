@@ -1,5 +1,6 @@
 import { connection, forgetAll, getTicksHistory } from '../api';
 import chartStore from '../store/chart-store';
+import { THistory } from '../types';
 
 export const tickResponse = async (res: MessageEvent) => {
   const data = JSON.parse(res.data);
@@ -8,15 +9,16 @@ export const tickResponse = async (res: MessageEvent) => {
     connection.removeEventListener('message', tickResponse, false);
   }
   if (data.msg_type === 'tick') {
-    // console.log('tick = ', data.tick);
-    chartStore.addTick({ price: data.tick.bid, time: data.tick.epoch });
+    chartStore.addTick({
+      price: data.tick.bid,
+      time: convertUnixToLocaleString(data.tick.epoch),
+    });
   }
   if (data.msg_type === 'history') {
-    console.log('history = ', data.history);
-    const { prices, times } = data.history as Record<string, Array<number>>;
+    const { prices, times } = data.history as THistory;
     const result = prices.map((el, index) => ({
       price: prices[index],
-      time: times[index],
+      time: convertUnixToLocaleString(times[index]),
     }));
     chartStore.createHistory(result);
   }
@@ -26,4 +28,8 @@ export const tickHistoryHandler = async (symbol: string) => {
   await forgetAll();
   connection.addEventListener('message', tickResponse);
   if (symbol) await getTicksHistory(symbol, true);
+  chartStore.symbol = symbol;
 };
+
+const convertUnixToLocaleString = (time: number) =>
+  new Date(time * 1000).toLocaleTimeString();

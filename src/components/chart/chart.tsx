@@ -45,7 +45,7 @@ const Chart = observer(({ data = chartStore.data }: TChartProps) => {
             bottom: 5,
           }}
         >
-          {/* <CartesianGrid strokeDasharray='3 3' /> */}
+          <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='time' />
           <YAxis domain={[min - gap, max + gap]} />
           <Tooltip />
@@ -54,9 +54,9 @@ const Chart = observer(({ data = chartStore.data }: TChartProps) => {
             type='monotone'
             dataKey='price'
             stroke='#8884d8'
+            dot={false}
             activeDot={{ r: 4 }}
           />
-          {/* <Line type='monotone' dataKey='uv' stroke='#82ca9d' /> */}
         </LineChart>
       </ResponsiveContainer>
     </>

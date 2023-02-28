@@ -3,6 +3,7 @@ import { TChartData } from '../types';
 
 class ChartStore {
   data: TChartData[] = [];
+  symbol = '';
 
   constructor() {
     makeAutoObservable(this);
