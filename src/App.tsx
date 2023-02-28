@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Chart from './components/chart/chart';
 import SymbolsList from './components/symbols-list/symbols-list';
 import { Card, Layout, Space } from 'antd';
