@@ -21,7 +21,7 @@ const Header = observer(() => {
     <Layout.Header style={headerStyle}>
       <div className='header_between'>
         <span>Simple DTrader</span>
-        {loginid ? 'logout' : <Login />}
+        {loginid ? loginid : <Login />}
       </div>
     </Layout.Header>
   );

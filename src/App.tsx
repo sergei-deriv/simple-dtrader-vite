@@ -1,7 +1,7 @@
 import { Card, Layout, Space, Typography } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { SymbolsList, Chart, Message, Login, Header } from './components';
-import './App.css';
+import './App.scss';
 
 const { Footer, Content } = Layout;
 

@@ -21,7 +21,7 @@ const Message = observer(() => {
     else {
       messageApi.destroy();
       // reset data for modal
-      messageStore.setMessageData(false, 'Action in progress...', 'loading');
+      messageStore.resetMessageData();
     }
   }, [show]);
 

@@ -1,5 +1,8 @@
+import { AuthorizeResponse } from './../types/deriv.type';
+import { authorize } from './../api/requests';
 import { connection, forgetAll, getTicksHistory } from '../api';
 import chartStore from '../store/chart-store';
+import userStore from '../store/user-store';
 import { THistory } from '../types';
 
 export const tickResponse = async (res: MessageEvent) => {
@@ -38,3 +41,14 @@ export const tickHistoryHandler = async (symbol: string) => {
 
 const convertUnixToLocaleString = (time: number) =>
   new Date(time * 1000).toLocaleTimeString();
+
+export const authorizeHandler = async (token: string) => {
+  const response: AuthorizeResponse = await authorize(token);
+
+  if (response.authorize) {
+    userStore.setAuthorize(response.authorize ?? {});
+    return true;
+  }
+
+  return false;
+};

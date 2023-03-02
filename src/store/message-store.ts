@@ -1,10 +1,14 @@
 import { NoticeType } from 'antd/es/message/interface';
 import { makeAutoObservable } from 'mobx';
 
+const showMessageDefault = false;
+const contentMessageDefault = 'Loading...';
+const typeMessageDefault: NoticeType = 'loading';
+
 class MessageStore {
-  showMessage = false;
-  contentMessage = 'Action in progress...';
-  typeMessage: NoticeType = 'loading';
+  showMessage = showMessageDefault;
+  contentMessage = contentMessageDefault;
+  typeMessage: NoticeType = typeMessageDefault;
 
   constructor() {
     makeAutoObservable(this);
@@ -15,13 +19,19 @@ class MessageStore {
   };
 
   setMessageData = (
-    show: boolean = false,
-    content: string = 'Action in progress...',
-    type: NoticeType = 'loading'
+    show: boolean = showMessageDefault,
+    content: string = contentMessageDefault,
+    type: NoticeType = typeMessageDefault
   ) => {
     this.showMessage = show;
     this.contentMessage = content;
     this.typeMessage = type;
+  };
+
+  resetMessageData = () => {
+    this.showMessage = showMessageDefault;
+    this.contentMessage = contentMessageDefault;
+    this.typeMessage = typeMessageDefault;
   };
 }
 

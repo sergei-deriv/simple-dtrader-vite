@@ -27,6 +27,10 @@ class UserStore {
   constructor() {
     makeAutoObservable(this);
   }
+
+  setAuthorize = (authorize: Authorize) => {
+    this.authorize = authorize;
+  };
 }
 
 export default new UserStore();

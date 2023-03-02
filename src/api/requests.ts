@@ -1,3 +1,4 @@
+import { AuthorizeRequest } from './../types/deriv.type';
 import {
   ActiveSymbolsRequest,
   ForgetAllRequest,
@@ -19,6 +20,10 @@ export const ticks_history_request: TicksHistoryRequest = {
 
 export const forget_all_request: ForgetAllRequest = {
   forget_all: 'ticks',
+};
+
+export const authorize_request: AuthorizeRequest = {
+  authorize: '',
 };
 
 // get active_symbols
@@ -55,5 +60,17 @@ export const forgetAll = (req: ForgetAllRequest = forget_all_request) => {
     .send(req)
     .catch((e: ErrorEvent) =>
       console.log('forgetAll error = ', e.error.message)
+    );
+};
+
+// authorize
+export const authorize = (token: string) => {
+  const req: AuthorizeRequest = {
+    authorize: token,
+  };
+  return api
+    .send(req)
+    .catch((e: ErrorEvent) =>
+      console.log('authorize error = ', e.error.message)
     );
 };

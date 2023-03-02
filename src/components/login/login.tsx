@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Modal, Input, Typography } from 'antd';
+import { authorizeHandler } from '../../utils';
 
 const Login = () => {
-  const [token, setToken] = React.useState('');
+  const [error, setError] = React.useState('');
+  const [token, setToken] = React.useState('6ZFxhM1OuZa2ss8');
   const [open, setOpen] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
+
+  const resetError = () => {
+    error && setError('');
+  };
 
   const showModal = () => {
     setOpen(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
+    resetError();
+
+    // wait result
+    const result = await authorizeHandler(token);
+
+    if (result) {
       setConfirmLoading(false);
-    }, 2000);
+      setOpen(false);
+    } else {
+      setConfirmLoading(false);
+      setError('something wrong, please try again');
+    }
   };
 
   const handleCancel = () => {
@@ -25,6 +39,10 @@ const Login = () => {
   const onChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToken(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    resetError();
+  }, [token, open]);
 
   return (
     <>
@@ -39,10 +57,15 @@ const Login = () => {
         onCancel={handleCancel}
         okButtonProps={{ disabled: !token }}
       >
-        <Typography.Paragraph className='center' strong>
+        <Typography.Paragraph className='center' strong mark>
           Type your API token
         </Typography.Paragraph>
         <Input value={token} onChange={onChangeInputHandler} />
+        {error && (
+          <Typography.Paragraph className='center' type='danger'>
+            {error}
+          </Typography.Paragraph>
+        )}
       </Modal>
     </>
   );
