@@ -3,6 +3,7 @@ import { Layout } from 'antd';
 import Login from '../login';
 import { userStore } from '../../store';
 import { observer } from 'mobx-react-lite';
+import Logout from '../logout';
 
 const headerStyle: React.CSSProperties = {
   // textAlign: 'center',
@@ -21,7 +22,7 @@ const Header = observer(() => {
     <Layout.Header style={headerStyle}>
       <div className='header_between'>
         <span>Simple DTrader</span>
-        {loginid ? loginid : <Login />}
+        {loginid ? <Logout /> : <Login />}
       </div>
     </Layout.Header>
   );

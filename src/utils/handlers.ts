@@ -1,9 +1,7 @@
-import { AuthorizeResponse } from './../types/deriv.type';
-import { authorize } from './../api/requests';
-import { connection, forgetAll, getTicksHistory } from '../api';
-import chartStore from '../store/chart-store';
-import userStore from '../store/user-store';
-import { THistory } from '../types';
+import { logouot } from './../api/requests';
+import { authorize, connection, forgetAll, getTicksHistory } from '../api';
+import { chartStore, userStore } from '../store';
+import { THistory, AuthorizeResponse, LogOutResponse } from '../types';
 
 export const tickResponse = async (res: MessageEvent) => {
   const data = JSON.parse(res.data);
@@ -47,6 +45,17 @@ export const authorizeHandler = async (token: string) => {
 
   if (response.authorize) {
     userStore.setAuthorize(response.authorize ?? {});
+    return true;
+  }
+
+  return false;
+};
+
+export const logoutHandler = async () => {
+  const response: LogOutResponse = await logouot();
+
+  if (response.logout === 1) {
+    userStore.resetAuthorize();
     return true;
   }
 

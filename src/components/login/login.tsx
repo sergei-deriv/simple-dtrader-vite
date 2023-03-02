@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Modal, Input, Typography } from 'antd';
 import { authorizeHandler } from '../../utils';
 
@@ -40,7 +40,7 @@ const Login = () => {
     setToken(e.currentTarget.value);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     resetError();
   }, [token, open]);
 

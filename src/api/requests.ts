@@ -1,8 +1,9 @@
-import { AuthorizeRequest } from './../types/deriv.type';
 import {
   ActiveSymbolsRequest,
   ForgetAllRequest,
   TicksHistoryRequest,
+  AuthorizeRequest,
+  LogOutRequest,
 } from '../types';
 import { api } from './api';
 
@@ -24,6 +25,10 @@ export const forget_all_request: ForgetAllRequest = {
 
 export const authorize_request: AuthorizeRequest = {
   authorize: '',
+};
+
+export const logout_request: LogOutRequest = {
+  logout: 1,
 };
 
 // get active_symbols
@@ -73,4 +78,11 @@ export const authorize = (token: string) => {
     .catch((e: ErrorEvent) =>
       console.log('authorize error = ', e.error.message)
     );
+};
+
+// authorize
+export const logouot = () => {
+  return api
+    .send(logout_request)
+    .catch((e: ErrorEvent) => console.log('logouot error = ', e.error.message));
 };

@@ -21,8 +21,7 @@ user_id
 */
 
 class UserStore {
-  authorize = { loginid: '' } as Authorize;
-  // loginid = '';
+  authorize = {} as Authorize;
 
   constructor() {
     makeAutoObservable(this);
@@ -30,6 +29,10 @@ class UserStore {
 
   setAuthorize = (authorize: Authorize) => {
     this.authorize = authorize;
+  };
+
+  resetAuthorize = () => {
+    this.authorize = {};
   };
 }
 
