@@ -12,7 +12,7 @@ const headerStyle: React.CSSProperties = {
   paddingInline: 50,
   lineHeight: '64px',
   backgroundColor: '#7dbcea',
-  fontSize: '24px',
+  fontSize: '18px',
 };
 
 const Header = observer(() => {

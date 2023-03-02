@@ -4,11 +4,9 @@ import { logoutHandler } from '../../utils';
 
 const Logout = () => {
   return (
-    <>
-      <Button type='primary' onClick={logoutHandler}>
-        Logout
-      </Button>
-    </>
+    <Button type='primary' onClick={logoutHandler}>
+      Logout
+    </Button>
   );
 };
 

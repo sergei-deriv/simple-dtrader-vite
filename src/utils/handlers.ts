@@ -44,7 +44,7 @@ export const authorizeHandler = async (token: string) => {
   const response: AuthorizeResponse = await authorize(token);
 
   if (response.authorize) {
-    userStore.setAuthorize(response.authorize ?? {});
+    userStore.setAuthorize(response.authorize);
     return true;
   }
 
