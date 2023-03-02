@@ -20,6 +20,7 @@ upgradeable_landing_companies
 user_id
 */
 
+const userDataKey = 'userData';
 class UserStore {
   authorize = {} as Authorize;
 
@@ -29,10 +30,12 @@ class UserStore {
 
   setAuthorize = (authorize: Authorize) => {
     this.authorize = authorize;
+    sessionStorage.setItem(userDataKey, JSON.stringify(authorize));
   };
 
   resetAuthorize = () => {
     this.authorize = {};
+    sessionStorage.removeItem(userDataKey);
   };
 }
 
