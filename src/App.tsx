@@ -1,21 +1,9 @@
 import { Card, Layout, Space, Typography } from 'antd';
-// import { counter } from './store';
 import { observer } from 'mobx-react-lite';
-import { SymbolsList, Chart, Message } from './components';
+import { SymbolsList, Chart, Message, Login, Header } from './components';
 import './App.css';
 
-const { Header, Footer, Content } = Layout;
-const { Text, Title } = Typography;
-
-const headerStyle: React.CSSProperties = {
-  textAlign: 'center',
-  color: '#fff',
-  height: 64,
-  paddingInline: 50,
-  lineHeight: '64px',
-  backgroundColor: '#7dbcea',
-  fontSize: '24px',
-};
+const { Footer, Content } = Layout;
 
 const contentStyle: React.CSSProperties = {
   // textAlign: 'center',
@@ -32,13 +20,13 @@ const footerStyle: React.CSSProperties = {
 
 const App = observer(() => {
   return (
-    <div>
+    <>
       <Message />
       <Layout>
-        <Header style={headerStyle}>Simple DTrader</Header>
+        <Header />
         <Content style={contentStyle}>
-          <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
-            <Card title='Set symbol' size='small'>
+          <Space direction='vertical' size='large' style={{ display: 'flex' }}>
+            <Card className='center' title='Set symbol' size='small'>
               <SymbolsList />
             </Card>
             <Card title='Chart'>
@@ -48,7 +36,7 @@ const App = observer(() => {
         </Content>
         <Footer style={footerStyle}>Made in Deriv Minsk office in 2023</Footer>
       </Layout>
-    </div>
+    </>
   );
 });
 

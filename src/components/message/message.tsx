@@ -2,14 +2,14 @@ import { message } from 'antd';
 import { NoticeType } from 'antd/es/message/interface';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { baseStore } from '../../store';
+import { messageStore } from '../../store';
 
 const Message = observer(() => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const show = baseStore.showMessage;
-  const content = baseStore.contentMessage;
-  const type: NoticeType = baseStore.typeMessage;
+  const show = messageStore.showMessage;
+  const content = messageStore.contentMessage;
+  const type: NoticeType = messageStore.typeMessage;
 
   useEffect(() => {
     if (show)
@@ -21,7 +21,7 @@ const Message = observer(() => {
     else {
       messageApi.destroy();
       // reset data for modal
-      baseStore.setMessageData(false, 'Action in progress...', 'loading');
+      messageStore.setMessageData(false, 'Action in progress...', 'loading');
     }
   }, [show]);
 

@@ -4,7 +4,7 @@ import { getActiveSymbols } from '../../api';
 import { ActiveSymbolsResponse, Option } from '../../types';
 import { createOptions } from '../../utils/create-options';
 import { tickHistoryHandler } from '../../utils/handlers';
-import { baseStore } from '../../store';
+import { messageStore } from '../../store';
 
 // const defOptions: Option[] = [
 //   {
@@ -64,12 +64,12 @@ const SymbolsList = () => {
   };
 
   React.useEffect(() => {
-    baseStore.setShowMessage(true);
+    messageStore.setShowMessage(true);
     getSymbols();
   }, []);
 
   React.useEffect(() => {
-    baseStore.setShowMessage(loading);
+    messageStore.setShowMessage(loading);
   }, [loading]);
 
   const cascader = (
