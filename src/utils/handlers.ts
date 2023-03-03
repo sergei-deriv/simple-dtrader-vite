@@ -1,7 +1,19 @@
-import { logouot } from './../api/requests';
-import { authorize, connection, forgetAll, getTicksHistory } from '../api';
+import {
+  authorize,
+  connection,
+  forgetAll,
+  getTicksHistory,
+  contracts_for_symbol,
+  logouot,
+} from '../api';
 import { chartStore, userStore } from '../store';
-import { THistory, AuthorizeResponse, LogOutResponse } from '../types';
+import {
+  THistory,
+  AuthorizeResponse,
+  LogOutResponse,
+  ContractsForSymbolResponse,
+  ContractsForSymbolRequest,
+} from '../types';
 
 export const tickResponse = async (res: MessageEvent) => {
   const data = JSON.parse(res.data);
@@ -30,9 +42,9 @@ export const tickHistoryHandler = async (symbol: string) => {
   connection.addEventListener('message', tickResponse);
   if (symbol) {
     await getTicksHistory(symbol, true);
-    chartStore.symbol = symbol;
+    userStore.setSymbol(symbol);
   } else {
-    chartStore.symbol = '';
+    userStore.setSymbol('');
     chartStore.createHistory([]);
   }
 };
@@ -45,6 +57,7 @@ export const authorizeHandler = async (token: string) => {
 
   if (response.authorize) {
     userStore.setAuthorize(response.authorize);
+    userStore.setToken(token);
     return true;
   }
 
@@ -56,6 +69,30 @@ export const logoutHandler = async () => {
 
   if (response.logout === 1) {
     userStore.resetAuthorize();
+    userStore.setToken('');
+    return true;
+  }
+
+  return false;
+};
+
+export const constractsForSymbolHandler = async (
+  symbol: string,
+  currency: string = userStore.authorize?.currency ?? '',
+  landing_company = (userStore.authorize
+    ?.landing_company_name as ContractsForSymbolRequest['landing_company']) ??
+    undefined
+) => {
+  if (!symbol) return false;
+
+  const response: ContractsForSymbolResponse = await contracts_for_symbol(
+    symbol,
+    currency,
+    landing_company
+  );
+
+  if (response.contracts_for) {
+    userStore.setContractsFor(response.contracts_for);
     return true;
   }
 

@@ -4,6 +4,7 @@ import {
   TicksHistoryRequest,
   AuthorizeRequest,
   LogOutRequest,
+  ContractsForSymbolRequest,
 } from '../types';
 import { api } from './api';
 
@@ -29,6 +30,10 @@ export const authorize_request: AuthorizeRequest = {
 
 export const logout_request: LogOutRequest = {
   logout: 1,
+};
+
+export const contracts_for_symbol_request: ContractsForSymbolRequest = {
+  contracts_for: '',
 };
 
 // get active_symbols
@@ -85,4 +90,22 @@ export const logouot = () => {
   return api
     .send(logout_request)
     .catch((e: ErrorEvent) => console.log('logouot error = ', e.error.message));
+};
+
+// contracts_for
+export const contracts_for_symbol = (
+  symbol: string,
+  currency: string,
+  landing_company: ContractsForSymbolRequest['landing_company'] = undefined
+) => {
+  contracts_for_symbol_request.contracts_for = symbol;
+  if (currency) contracts_for_symbol_request.currency = currency;
+  if (landing_company)
+    contracts_for_symbol_request.landing_company = landing_company;
+
+  return api
+    .send(contracts_for_symbol_request)
+    .catch((e: ErrorEvent) =>
+      console.log('contracts_for error = ', e.error.message)
+    );
 };

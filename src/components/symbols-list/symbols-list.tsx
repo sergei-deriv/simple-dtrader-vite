@@ -3,7 +3,10 @@ import { Cascader } from 'antd';
 import { getActiveSymbols } from '../../api';
 import { ActiveSymbolsResponse, Option } from '../../types';
 import { createOptions } from '../../utils/create-options';
-import { tickHistoryHandler } from '../../utils/handlers';
+import {
+  constractsForSymbolHandler,
+  tickHistoryHandler,
+} from '../../utils/handlers';
 import { messageStore } from '../../store';
 
 const SymbolsList = () => {
@@ -11,8 +14,12 @@ const SymbolsList = () => {
   const [options, setOptions] = React.useState<Option[]>([] as Option[]);
 
   // type OnSingleChange<OptionType> = (value: SingleValueType, selectOptions: OptionType[]) => void;
-  const onChange = (symbol: string) => {
-    tickHistoryHandler(symbol);
+  const onChange = async (symbols: string[]) => {
+    const symbol = symbols ? symbols[0] : '';
+    messageStore.setShowMessage(true);
+    await tickHistoryHandler(symbol);
+    await constractsForSymbolHandler(symbol);
+    messageStore.setShowMessage(false);
   };
 
   const getSymbols = async () => {

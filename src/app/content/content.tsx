@@ -11,8 +11,6 @@ const contentStyle: React.CSSProperties = {
 };
 
 const Content = () => {
-  // const loginid = userStore.authorize?.loginid;
-
   return (
     <Layout.Content style={contentStyle}>
       <Space direction='vertical' size='large' style={{ display: 'flex' }}>

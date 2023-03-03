@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { Authorize } from '../types';
+import { Authorize, ContractsFor } from '../types';
 
 /*
 account_list
@@ -23,6 +23,9 @@ user_id
 const userDataKey = 'userData';
 class UserStore {
   authorize = {} as Authorize;
+  contracts_for = {} as ContractsFor;
+  token = '';
+  symbol = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -30,12 +33,25 @@ class UserStore {
 
   setAuthorize = (authorize: Authorize) => {
     this.authorize = authorize;
-    sessionStorage.setItem(userDataKey, JSON.stringify(authorize));
+    // sessionStorage.setItem(userDataKey, JSON.stringify(authorize));
   };
 
   resetAuthorize = () => {
     this.authorize = {};
-    sessionStorage.removeItem(userDataKey);
+    // sessionStorage.removeItem(userDataKey);
+  };
+
+  setSymbol = (symbol: string) => {
+    this.symbol = symbol;
+  };
+
+  setToken = (token: string) => {
+    this.token = token;
+    sessionStorage.setItem('token', token);
+  };
+
+  setContractsFor = (contracts_for: ContractsFor) => {
+    this.contracts_for = contracts_for;
   };
 }
 
