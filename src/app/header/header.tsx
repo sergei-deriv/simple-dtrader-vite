@@ -1,9 +1,9 @@
 import React from 'react';
 import { Layout } from 'antd';
-import Login from '../login';
+import Login from '../../components/login';
 import { userStore } from '../../store';
 import { observer } from 'mobx-react-lite';
-import Logout from '../logout';
+import Logout from '../../components/logout';
 
 const headerStyle: React.CSSProperties = {
   // textAlign: 'center',

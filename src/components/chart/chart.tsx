@@ -30,7 +30,7 @@ const Chart = observer(({ data = chartStore.data }: TChartProps) => {
 
   const gap = ((max - min) / 100) * 5; // 5% gap
 
-  return (
+  return data.length > 0 ? (
     <>
       <ResponsiveContainer width={'100%'} minHeight={500} maxHeight={800}>
         <LineChart
@@ -58,7 +58,7 @@ const Chart = observer(({ data = chartStore.data }: TChartProps) => {
         </LineChart>
       </ResponsiveContainer>
     </>
-  );
+  ) : null;
 });
 
 export default Chart;
