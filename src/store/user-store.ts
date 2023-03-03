@@ -53,7 +53,7 @@ class UserStore {
 
   setContractsFor = (contracts_for: ContractsFor) => {
     this.contracts_for = contracts_for;
-    // console.log('contracts_for = ', contracts_for);
+    console.log('contracts_for = ', contracts_for);
   };
 
   resetContractsFor = () => {

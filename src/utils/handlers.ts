@@ -47,6 +47,7 @@ export const tickHistoryHandler = async (symbol: string) => {
     userStore.setSymbol(symbol);
   } else {
     userStore.setSymbol('');
+    userStore.resetContractsFor();
     chartStore.createHistory([]);
   }
 };

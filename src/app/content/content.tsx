@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Space, Layout } from 'antd';
-import { SymbolsList } from '../../components';
+import { SymbolsList, TradeTypeList } from '../../components';
 import ChartCard from './chart-card';
 
 const contentStyle: React.CSSProperties = {
@@ -16,6 +16,7 @@ const Content = () => {
       <Space direction='vertical' size='large' style={{ display: 'flex' }}>
         <Card className='center' title='Set symbol' size='small'>
           <SymbolsList />
+          {/* <TradeTypeList /> */}
         </Card>
         <ChartCard />
       </Space>
