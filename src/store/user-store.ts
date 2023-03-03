@@ -54,6 +54,10 @@ class UserStore {
   setContractsFor = (contracts_for: ContractsFor) => {
     this.contracts_for = contracts_for;
   };
+
+  resetContractsFor = () => {
+    this.contracts_for = {} as ContractsFor;
+  };
 }
 
 export default new UserStore();

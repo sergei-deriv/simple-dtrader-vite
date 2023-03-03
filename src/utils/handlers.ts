@@ -56,6 +56,12 @@ export const authorizeHandler = async (token: string) => {
   if (response.authorize) {
     userStore.setAuthorize(response.authorize);
     userStore.setToken(token);
+
+    // check if there is choosen symbol then get contracts
+    if (userStore.symbol) {
+      contractsForSymbolHandler(userStore.symbol);
+    }
+
     return true;
   }
 
@@ -76,6 +82,7 @@ export const logoutHandler = async () => {
 
   if (response.logout === 1) {
     userStore.resetAuthorize();
+    userStore.resetContractsFor();
     userStore.setToken('');
     return true;
   }
