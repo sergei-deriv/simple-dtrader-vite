@@ -39,9 +39,10 @@ export const tickResponse = async (res: MessageEvent) => {
 };
 
 export const tickHistoryHandler = async (symbol: string) => {
-  await forgetAll();
-  connection.addEventListener('message', tickResponse);
+  if (userStore.symbol) await forgetAll();
+
   if (symbol) {
+    connection.addEventListener('message', tickResponse);
     await getTicksHistory(symbol, true);
     userStore.setSymbol(symbol);
   } else {
