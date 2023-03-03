@@ -6,7 +6,7 @@ import {
   contracts_for_symbol,
   logouot,
 } from '../api';
-import { chartStore, userStore } from '../store';
+import { chartStore, messageStore, userStore, tokenKey } from '../store';
 import {
   THistory,
   AuthorizeResponse,
@@ -14,6 +14,7 @@ import {
   ContractsForSymbolResponse,
   ContractsForSymbolRequest,
 } from '../types';
+import { convertUnixToLocaleString } from './helpers';
 
 export const tickResponse = async (res: MessageEvent) => {
   const data = JSON.parse(res.data);
@@ -49,9 +50,6 @@ export const tickHistoryHandler = async (symbol: string) => {
   }
 };
 
-const convertUnixToLocaleString = (time: number) =>
-  new Date(time * 1000).toLocaleTimeString();
-
 export const authorizeHandler = async (token: string) => {
   const response: AuthorizeResponse = await authorize(token);
 
@@ -62,6 +60,15 @@ export const authorizeHandler = async (token: string) => {
   }
 
   return false;
+};
+
+export const checkTokenAndAuthorizeHandler = async () => {
+  const token = sessionStorage.getItem(tokenKey);
+  if (token) {
+    messageStore.setShowMessage(true);
+    await authorizeHandler(token);
+    messageStore.setShowMessage(false);
+  }
 };
 
 export const logoutHandler = async () => {

@@ -21,6 +21,7 @@ user_id
 */
 
 const userDataKey = 'userData';
+export const tokenKey = 'token';
 class UserStore {
   authorize = {} as Authorize;
   contracts_for = {} as ContractsFor;
@@ -47,7 +48,7 @@ class UserStore {
 
   setToken = (token: string) => {
     this.token = token;
-    sessionStorage.setItem('token', token);
+    sessionStorage.setItem(tokenKey, token);
   };
 
   setContractsFor = (contracts_for: ContractsFor) => {
