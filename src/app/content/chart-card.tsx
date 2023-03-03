@@ -7,7 +7,7 @@ import { chartStore } from '../../store';
 const ChartCard = observer(() => {
   return chartStore.data.length > 0 ? (
     <Card title='Chart'>
-      <Chart />
+      <Chart data={chartStore.data} />
     </Card>
   ) : null;
 });

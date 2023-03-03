@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import {
   LineChart,
   Line,
@@ -8,14 +7,13 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { chartStore } from '../../store';
 import { TChartData } from '../../types';
 
 type TChartProps = {
-  data?: Array<TChartData>;
+  data: Array<TChartData>;
 };
 
-const Chart = observer(({ data = chartStore.data }: TChartProps) => {
+const Chart = ({ data }: TChartProps) => {
   let min = Infinity,
     max = -Infinity;
 
@@ -59,6 +57,6 @@ const Chart = observer(({ data = chartStore.data }: TChartProps) => {
       </ResponsiveContainer>
     </>
   ) : null;
-});
+};
 
 export default Chart;
