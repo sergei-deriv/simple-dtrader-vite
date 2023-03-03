@@ -4,7 +4,7 @@ import { getActiveSymbols } from '../../api';
 import { ActiveSymbolsResponse, Option } from '../../types';
 import { createOptions } from '../../utils/create-options';
 import {
-  constractsForSymbolHandler,
+  contractsForSymbolHandler,
   tickHistoryHandler,
 } from '../../utils/handlers';
 import { messageStore } from '../../store';
@@ -18,7 +18,7 @@ const SymbolsList = () => {
     const symbol = symbols ? symbols[0] : '';
     messageStore.setShowMessage(true);
     await tickHistoryHandler(symbol);
-    await constractsForSymbolHandler(symbol);
+    await contractsForSymbolHandler(symbol);
     messageStore.setShowMessage(false);
   };
 

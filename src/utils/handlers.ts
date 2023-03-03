@@ -76,14 +76,17 @@ export const logoutHandler = async () => {
   return false;
 };
 
-export const constractsForSymbolHandler = async (
+export const contractsForSymbolHandler = async (
   symbol: string,
   currency: string = userStore.authorize?.currency ?? '',
   landing_company = (userStore.authorize
     ?.landing_company_name as ContractsForSymbolRequest['landing_company']) ??
     undefined
 ) => {
+  // symbol is empty
   if (!symbol) return false;
+  // not authorized
+  if (!userStore.authorize?.loginid) return false;
 
   const response: ContractsForSymbolResponse = await contracts_for_symbol(
     symbol,
