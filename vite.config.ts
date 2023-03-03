@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/simple-dtrader-vite/',
-  plugins: [ghPages(), react()],
+  plugins: [react(), ghPages()],
 });
