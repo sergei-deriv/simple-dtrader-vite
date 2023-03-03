@@ -16,7 +16,7 @@ const Content = () => {
       <Space direction='vertical' size='large' style={{ display: 'flex' }}>
         <Card className='center' title='Set symbol' size='small'>
           <SymbolsList />
-          {/* <TradeTypeList /> */}
+           <TradeTypeList />
         </Card>
         <ChartCard />
       </Space>
