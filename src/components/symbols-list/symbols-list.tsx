@@ -6,41 +6,6 @@ import { createOptions } from '../../utils/create-options';
 import { tickHistoryHandler } from '../../utils/handlers';
 import { messageStore } from '../../store';
 
-// const defOptions: Option[] = [
-//   {
-//     value: 'forex',
-//     label: 'forex',
-//     children: [
-//       {
-//         value: 'AUDCAD',
-//         label: 'AUDCAD',
-//       },
-//       {
-//         value: 'EURUSD',
-//         label: 'EURUSD',
-//       },
-//     ],
-//   },
-//   {
-//     value: 'stocks',
-//     label: 'stocks',
-//     children: [
-//       {
-//         value: 'Apple',
-//         label: 'Apple',
-//       },
-//       {
-//         value: 'Microsoft',
-//         label: 'Microsoft',
-//       },
-//       {
-//         value: 'Tesla',
-//         label: 'Tesla',
-//       },
-//     ],
-//   },
-// ];
-
 const SymbolsList = () => {
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Option[]>([] as Option[]);

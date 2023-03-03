@@ -1,7 +1,7 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import { Card, Space, Layout } from 'antd';
-import { Chart, SymbolsList } from '../../components';
+import { SymbolsList } from '../../components';
+import ChartCard from './chart-card';
 
 const contentStyle: React.CSSProperties = {
   // textAlign: 'center',
@@ -10,7 +10,7 @@ const contentStyle: React.CSSProperties = {
   minHeight: 'calc(100vh - 129px)',
 };
 
-const Content = observer(() => {
+const Content = () => {
   // const loginid = userStore.authorize?.loginid;
 
   return (
@@ -19,12 +19,10 @@ const Content = observer(() => {
         <Card className='center' title='Set symbol' size='small'>
           <SymbolsList />
         </Card>
-        <Card title='Chart'>
-          <Chart />
-        </Card>
+        <ChartCard />
       </Space>
     </Layout.Content>
   );
-});
+};
 
 export default Content;

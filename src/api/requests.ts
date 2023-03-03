@@ -14,7 +14,7 @@ export const active_symbols_request: ActiveSymbolsRequest = {
 
 export const ticks_history_request: TicksHistoryRequest = {
   ticks_history: 'frxAUDJPY',
-  count: 100,
+  count: 50,
   subscribe: 1,
   end: 'latest',
 };
