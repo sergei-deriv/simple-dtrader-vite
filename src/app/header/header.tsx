@@ -12,7 +12,7 @@ const headerStyle: React.CSSProperties = {
   paddingInline: 50,
   lineHeight: '64px',
   backgroundColor: '#7dbcea',
-  fontSize: '18px',
+  fontSize: '16px',
 };
 
 const Header = observer(() => {
@@ -21,7 +21,11 @@ const Header = observer(() => {
   return (
     <Layout.Header style={headerStyle}>
       <div className='header_between'>
-        <span>Simple DTrader</span>
+        <div className='logo'>
+          <img className='logo__img' src='src/assets/logo.svg' alt='logo' />
+          <span>Simple DTrader</span>
+        </div>
+
         {loginid ? <Logout /> : <Login />}
       </div>
     </Layout.Header>
