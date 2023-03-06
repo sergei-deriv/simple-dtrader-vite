@@ -23,7 +23,7 @@ const Header = observer(() => {
       <div className='header_between'>
         <div className='logo'>
           <img className='logo__img' src='src/assets/logo.svg' alt='logo' />
-          <span>Simple DTrader</span>
+          <span>SDTrader</span>
         </div>
 
         {loginid ? <Logout /> : <Login />}
