@@ -4,6 +4,7 @@ import Login from '../../components/login';
 import { userStore } from '../../store';
 import { observer } from 'mobx-react-lite';
 import Logout from '../../components/logout';
+import logoImg from '../../assets/logo.svg';
 
 const headerStyle: React.CSSProperties = {
   // textAlign: 'center',
@@ -22,7 +23,7 @@ const Header = observer(() => {
     <Layout.Header style={headerStyle}>
       <div className='header_between'>
         <div className='logo'>
-          <img className='logo__img' src='src/assets/logo.svg' alt='logo' />
+          <img className='logo__img' src={logoImg} alt='logo' />
           <span>SDTrader</span>
         </div>
 
