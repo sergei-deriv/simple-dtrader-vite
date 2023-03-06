@@ -50,6 +50,19 @@ const defOptions: Option[] = [
 export const createOptions = (active_symbols: ActiveSymbols): Option[] => {
   // console.log('active_symbols = ', active_symbols);
 
+  // define markets
+  const existed_market = [] as string[];
+  const market = [] as Option[];
+  active_symbols.forEach((e, index, array) => {
+    const exist = existed_market.includes(e.market);
+    if (!exist) {
+      existed_market.push(e.market);
+      market.push({ value: e.market, label: e.market_display_name });
+    }
+  });
+
+  // console.log('market = ', market);
+
   return active_symbols.map((e) => {
     return {
       value: e.symbol,
