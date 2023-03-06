@@ -8,31 +8,36 @@ import TradeTypeButtons from './trade-type-buttons';
 
 const TradeTypeList = observer(() => {
   const [selected, setSelected] = React.useState<null | string>(null);
+  const [typesOptions, setTypesOptions] = React.useState<Option[]>([]);
 
-  const key_value = {} as Record<string, string>;
+  useEffect(() => {
+    const key_value = {} as Record<string, string>;
 
-  userStore.contracts_for?.available?.forEach((item) => {
-    key_value[item.contract_category] = item.contract_category_display;
-  });
-
-  const types_options = [] as Option[];
-  for (const [k, v] of Object.entries(key_value)) {
-    types_options.push({
-      value: k,
-      label: v,
+    userStore.contracts_for?.available?.forEach((item) => {
+      key_value[item.contract_category] = item.contract_category_display;
     });
-  }
+
+    const types_options = [] as Option[];
+    for (const [k, v] of Object.entries(key_value)) {
+      types_options.push({
+        value: k,
+        label: v,
+      });
+    }
+
+    setTypesOptions(types_options);
+  }, [userStore.contracts_for?.available]);
 
   useEffect(() => {
     setSelected(null);
   }, [userStore.symbol]);
 
-  return types_options.length > 0 ? (
+  return typesOptions.length > 0 ? (
     <SpaceWrap>
       <Select
         value={selected}
         onChange={(value) => setSelected(value)}
-        options={types_options}
+        options={typesOptions}
         dropdownMatchSelectWidth={false}
         style={{ minWidth: 184 }}
         allowClear
