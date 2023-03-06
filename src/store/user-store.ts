@@ -1,26 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { Authorize, ContractsFor } from '../types';
 
-/*
-account_list
-balance
-country
-currency
-email
-fullname
-is_virtual
-landing_company_fullname
-landing_company_name
-local_currencies
-loginid
-preferred_language
-scopes
-trading
-upgradeable_landing_companies
-user_id
-*/
-
-const userDataKey = 'userData';
+// const userDataKey = 'userData';
 export const tokenKey = 'token';
 class UserStore {
   authorize = {} as Authorize;
@@ -53,7 +34,6 @@ class UserStore {
 
   setContractsFor = (contracts_for: ContractsFor) => {
     this.contracts_for = contracts_for;
-    console.log('contracts_for = ', contracts_for);
   };
 
   resetContractsFor = () => {

@@ -4,3 +4,4 @@ export { default as Message } from './message';
 export { default as Login } from './login';
 export { default as Logout } from './logout';
 export { default as TradeTypeList } from './trade-type-list';
+export { default as SpaceWrap } from './space-wrap';
