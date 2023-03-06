@@ -1,35 +1,41 @@
 import React from 'react';
-import { Cascader, Select } from 'antd';
-import { getActiveSymbols } from '../../api';
-import { ActiveSymbolsResponse, Option } from '../../types';
-import { createOptions } from '../../utils/create-options';
-import {
-  contractsForSymbolHandler,
-  tickHistoryHandler,
-} from '../../utils/handlers';
-import { messageStore } from '../../store';
+import { Select } from 'antd';
+import { Option } from '../../types';
 import { observer } from 'mobx-react-lite';
 import { userStore } from '../../store';
 
 const TradeTypeList = observer(() => {
-  const set_types_display = userStore.contracts_for?.available
-    ? [
-        ...new Set(
-          userStore.contracts_for.available.map(
-            (item) => item.contract_category_display
-          )
-        ),
-      ]
-    : [];
+  const [selected, setSelected] = React.useState<null | string>(null);
 
-  const options = set_types_display.map((e: string) => ({
-    value: e,
-    label: e,
-  }));
+  const key_value = {} as Record<string, string>;
 
-  console.log('options = ', options);
+  userStore.contracts_for?.available?.forEach((item) => {
+    key_value[item.contract_category] = item.contract_category_display;
+  });
 
-  return set_types_display.length > 0 ? <Select options={options} /> : <></>;
+  const options = [] as Option[];
+  for (const [k, v] of Object.entries(key_value)) {
+    options.push({
+      value: k,
+      label: v,
+    });
+  }
+
+  return options.length > 0 ? (
+    <div>
+      <Select
+        value={selected}
+        onChange={(value) => setSelected(value)}
+        options={options}
+        dropdownMatchSelectWidth={false}
+        style={{ minWidth: 184 }}
+        allowClear
+        placeholder={'trade type'}
+      />
+    </div>
+  ) : (
+    <></>
+  );
 });
 
 export default TradeTypeList;

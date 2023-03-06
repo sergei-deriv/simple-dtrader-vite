@@ -3,3 +3,16 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  &__img {
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    margin-right: 10px;
+  }
+}
+
