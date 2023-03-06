@@ -48,6 +48,8 @@ const defOptions: Option[] = [
 ];
 
 export const createOptions = (active_symbols: ActiveSymbols): Option[] => {
+  // console.log('active_symbols = ', active_symbols);
+
   return active_symbols.map((e) => {
     return {
       value: e.symbol,
