@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Select } from 'antd';
 import { Option } from '../../types';
 import { observer } from 'mobx-react-lite';
@@ -22,6 +22,10 @@ const TradeTypeList = observer(() => {
       label: v,
     });
   }
+
+  useEffect(() => {
+    setSelected(null);
+  }, [userStore.symbol]);
 
   return types_options.length > 0 ? (
     <SpaceWrap>
