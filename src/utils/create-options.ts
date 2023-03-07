@@ -2,229 +2,110 @@ import { ActiveSymbols, Option } from '../types';
 
 // display_name, symbol, market_display_name, submarket_display_name
 
-const defOptions: Option[] = [
-  {
-    value: 'forex',
-    label: 'forex',
-    children: [
-      {
-        value: 'AUDCAD',
-        label: 'AUDCAD',
-      },
-      {
-        value: 'EURUSD',
-        label: 'EURUSD',
-      },
-    ],
-  },
-  {
-    value: 'stocks',
-    label: 'stocks',
-    children: [
-      {
-        value: 'Apple',
-        label: 'Apple',
-        children: [
-          {
-            value: 'green apple',
-            label: 'green apple',
-          },
-          {
-            value: 'red apple',
-            label: 'red apple',
-          },
-        ],
-      },
-      {
-        value: 'Microsoft',
-        label: 'Microsoft',
-      },
-      {
-        value: 'Tesla',
-        label: 'Tesla',
-      },
-    ],
-  },
-];
+// use 3 levels or 2
+const use_submarket = false;
 
 export const createOptions = (active_symbols: ActiveSymbols): Option[] => {
-  // console.log('active_symbols = ', active_symbols);
-
-  // define markets
+  const result = [] as Option[];
   const existed_market = [] as string[];
-  const market = [] as Option[];
-  active_symbols.forEach((e, index, array) => {
-    const exist = existed_market.includes(e.market);
-    if (!exist) {
-      existed_market.push(e.market);
-      market.push({ value: e.market, label: e.market_display_name });
-    }
-  });
+  const existed_submarket = [] as string[];
 
-  // console.log('market = ', market);
-
-  return active_symbols.map((e) => {
-    return {
-      value: e.symbol,
-      label: e.display_name,
-    };
-  });
-
-  /*
-  // const market = active_symbols.map((el) => el.market_display_name);
-  // const market = [
-  //   ...new Set(active_symbols.map((item) => item.market_display_name)),
-  // ];
-  // const sub_market = [
-  //   ...new Set(active_symbols.map((item) => item.submarket_display_name)),
-  // ];
-
-  // let market: any = [];
-  // let sub_market: any = [];
-  const market_set: Set<string> = new Set();
-  const market_set2: Set<any> = new Set();
-  const submarket_set: Set<string> = new Set();
-
-  // define markets and submarkets
-  active_symbols.forEach((el) => {
-    market_set.add(el.market_display_name);
-    market_set2.add({
-      market_display_name: el.market_display_name,
-      submarket_display_name: el.submarket_display_name,
-    });
-    submarket_set.add(el.submarket_display_name);
-  });
-
-  // console.log(market_set);
-  const market = [...market_set];
-  const submarket = [...submarket_set];
-
-  console.log('active_symbols = ', active_symbols);
-  console.log('market_set = ', market_set);
-  console.log('market_set2 = ', market_set2);
-
-  
-  // display_name
-  // market
-  // market_display_name
-  // submarket
-  // submarket_display_name
-  // symbol
-  
-
-  const result: Option[] = [...market_set].map((el) => ({
-    value: el,
-    label: el,
-    children: [],
-  }));
-
-  type TObjectOption = {
-    [k: string]: Option;
-  };
-  const resObj = {} as TObjectOption;
-
-  active_symbols.forEach((el) => {
-    // if (resObj)
-
-    // check obj and create property for 1st time
-    if (!resObj.hasOwnProperty(el.market)) {
-      // for market
-      resObj[el.market] = {
-        value: el.market,
-        label: el.market_display_name,
-        children: [],
-      };
-
-      // for submarket
-      resObj[el.market].children?.push({
-        value: el.submarket,
-        label: el.submarket_display_name,
-        children: [],
-      });
-
-      // for symbol
-      resObj[el.market].children?.forEach((s, index) => {
-        resObj[el.market].children[index]({
-          value: el.submarket,
-          label: el.submarket_display_name,
-          children: [],
-        });
-      });
-    }
-  });
-
-  // // create structure
-  // active_symbols.forEach((el) => {
-  //   if (
-  //     result.some((e) => {
-  //       e.value === el.market_display_name;
-  //     })
-  //   ) {
-  //   }
-  // });
-
-  return result;
-
-  /*
-
-  const result: Option[] = [...market_set].map((el) => ({
-    value: el,
-    label: el,
-    children: [],
-  }));
   // create structure
-  active_symbols.forEach((el) => {
-    // const market_idx = market.indexOf(el.market_display_name);
-    const submarket_idx = submarket.indexOf(el.submarket_display_name);
+  active_symbols.forEach((e) => {
+    const is_exist_market = existed_market.includes(e.market);
+    const is_exist_submarket = existed_submarket.includes(e.submarket);
 
-    // check for market exist
-    const market_exist = result.some(
-      (res_el) => res_el.label === el.market_display_name
-    );
-    // if (market_exist) {
-    //   const market_idx = result.indexOf(el.market_display_name);
-    //   result[market_idx].value = el.market;
-    //   result[market_idx].label = el.market_display_name;
-    // } else {
-    //   result.push({
-    //     value: el.market,
-    //     label: el.market_display_name,
-    //     children: [],
-    //   });
-    // }
+    // for 3 levels (use submarket)
+    if (use_submarket) {
+      // market 1st time
+      if (!is_exist_market) {
+        existed_market.push(e.market);
+        existed_submarket.push(e.submarket);
 
-    // result[market_idx].value = el.market;
-    // result[market_idx].label = el.market_display_name;
-    // if (!result[market_idx].children) result[market_idx].children = [];
-    // if (result[market_idx].children) {
-    //   if (result[market_idx].children)
-    //     result[market_idx].children?.push({
-    //       value: el.submarket,
-    //       label: el.submarket_display_name,
-    //       // symbol: el.symbol,
-    //     });
-    // }
+        result.push({
+          value: e.market,
+          label: e.market_display_name,
+          children: [
+            {
+              value: e.submarket,
+              label: e.submarket_display_name,
+              children: [
+                {
+                  value: e.symbol,
+                  label: e.display_name,
+                },
+              ],
+            },
+          ],
+        });
+      }
+      // market already exist
+      else {
+        let market_idx = result.findIndex(
+          (element) => element.value === e.market
+        );
+
+        // there is not submarket
+        if (!is_exist_submarket) {
+          existed_submarket.push(e.submarket);
+
+          result[market_idx].children?.push({
+            value: e.submarket,
+            label: e.submarket_display_name,
+            children: [
+              {
+                value: e.symbol,
+                label: e.display_name,
+              },
+            ],
+          });
+        }
+        // there is submarket
+        else {
+          let submarket_idx =
+            result[market_idx].children?.findIndex(
+              (element) => element.value === e.submarket
+            ) ?? 0;
+
+          result[market_idx]?.children?.[submarket_idx]?.children?.push({
+            value: e.symbol,
+            label: e.display_name,
+          });
+        }
+      }
+    }
+
+    // for 2 levels (don't use submarket)
+    else {
+      // market 1st time
+      if (!is_exist_market) {
+        existed_market.push(e.market);
+        existed_submarket.push(e.submarket);
+
+        result.push({
+          value: e.market,
+          label: e.market_display_name,
+          children: [
+            {
+              value: e.symbol,
+              label: e.display_name,
+            },
+          ],
+        });
+      }
+      // market already exist
+      else {
+        let market_idx = result.findIndex(
+          (element) => element.value === e.market
+        );
+
+        result[market_idx].children?.push({
+          value: e.symbol,
+          label: e.display_name,
+        });
+      }
+    }
   });
 
-  console.log('market = ', market);
-  console.log('sub_market = ', submarket);
-
-  // const market_obj = active_symbols.forEach((el) => {
-  //   return { value: el.market, label: el.market_display_name };
-  // });
-
-  // active_symbols;
-  // const result: any = active_symbols.forEach((e) => {
-  //   result[e.market_display_name] = 'asd';
-  // });
-
-  // [...new Set(array.map((item) => item.age))];
   return result;
-  // return market.map((el) => ({
-  //   value: el,
-  //   label: el,
-  //   // market: 'asdf',
-  // }));
-
-  */
 };

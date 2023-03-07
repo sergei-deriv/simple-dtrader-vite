@@ -13,9 +13,15 @@ const SymbolsList = () => {
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Option[]>([] as Option[]);
 
+  // Just show the latest item.
+  const displayRender = React.useCallback(
+    (labels: string[]) => labels[labels.length - 1],
+    []
+  );
+
   // type OnSingleChange<OptionType> = (value: SingleValueType, selectOptions: OptionType[]) => void;
   const onChange = async (symbols: string[]) => {
-    const symbol = symbols ? symbols[0] : '';
+    const symbol = symbols ? symbols[symbols.length - 1] : '';
     messageStore.setShowMessage(true);
     await tickHistoryHandler(symbol);
     await contractsForSymbolHandler(symbol);
@@ -51,6 +57,7 @@ const SymbolsList = () => {
       onChange={onChange}
       placeholder='Please select'
       disabled={loading}
+      displayRender={displayRender}
     />
   );
 
